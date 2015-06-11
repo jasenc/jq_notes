@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Searchable Note App</title>
+    <link href='assets/styles.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <div class='top-bar'>
+        <input id='search' type="text" name="notesearch" placeholder="Search by title, tags, date, or even words/sentences in notes"><!--
+          --><button class='btn btn-top btn-search'>Search</button><!--
+        --><button class='btn btn-top btn-new'>New Note</button><!--
+        --><button class='btn btn-top btn-clear'>Clear Search</button>
+      </div>
+
+
+
+      <div class='new-note'>
+        <fieldset>
+          <legend>New Note</legend>
+          <label class='title'>
+            Title: <span class='title-warn'>Please enter a title!</span>	<br>
+            <input id='title' type="text" name="title" placeholder="Title of new note">
+          </label><!--
+          --><label class='tags'>
+            Tags: <span class='tags-warn'>Please enter a tag!</span><br>
+            <input id='tags' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
+          </label>
+          <label class='note-area'>
+            Notes: <span class='notes-warn'>Please enter a note!</span><br>
+            <textarea id='notes' type="text" name="notes" placeholder="Type your notes here"></textarea>
+          </label>
+          <label>
+            <button class='btn btn-top btn-delete'>Delete</button>
+            <button class="btn btn-save">Save</button>
+          </label>
+        </fieldset>
+      </div>
+
+      <ul class='allnotes'>
+        <li class='note'>
+          <div>
+            <h1>My Second Note</h1>
+            <div class='date'>
+              <h2>Tue June 9 2015</h2>
+              <span class='btn btn-edit'>Edit</span>
+            </div>
+            <h3>#second</h3>
+            <p>I just wanted to write my second note is all.</p>
+          </div>
+        </li>
+        <li class='note'>
+          <div>
+            <h1>My First Note</h1>
+            <div class='date'>
+              <h2>Tue June 9 2015</h2>
+              <span class='btn btn-edit'>Edit</span>
+            </div>
+            <h3>#first</h3>
+            <p>I just wanted to write my first note is all.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src='assets/app.js'></script>
+  </body>
+</html>
