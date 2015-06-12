@@ -134,8 +134,9 @@ input[name=notesearch] {
   border-radius: 4px;
 }
 
-.new-note {
-  display:none;
+.new-note,
+.edit-note {
+  display: none;
   border: 2px solid #999999;
   border-radius: 4px;
   margin: 0 15%;

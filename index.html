@@ -7,10 +7,12 @@
   <body>
     <div class='wrapper'>
       <div class='top-bar'>
-        <input id='search' type="text" name="notesearch" placeholder="Search by title, tags, date, or even words/sentences in notes"><!--
-          --><button class='btn btn-top btn-search'>Search</button><!--
-        --><button class='btn btn-top btn-new'>New Note</button><!--
-        --><button class='btn btn-top btn-clear'>Clear Search</button>
+        <form>
+          <input id='search' type="text" name="notesearch" placeholder="Search by title, tags, date, or even words/sentences in notes"><!--
+            --><button class='btn btn-top btn-search'>Search</button><!--
+          --><button class='btn btn-top btn-new'>New Note</button><!--
+          --><button class='btn btn-top btn-clear'>Clear Search</button>
+        </form>
       </div>
 
 
@@ -32,7 +34,29 @@
           </label>
           <label>
             <button class='btn btn-top btn-delete'>Delete</button>
-            <button class="btn btn-save">Save</button>
+            <button class="btn btn-save" id='save'>Save</button>
+          </label>
+        </fieldset>
+      </div>
+
+      <div class='edit-note'>
+        <fieldset>
+          <legend>New Note</legend>
+          <label class='title'>
+            Title: <span class='title-warn'>Please enter a title!</span>	<br>
+            <input id='edit-title' type="text" name="title" placeholder="Title of new note">
+          </label><!--
+          --><label class='tags'>
+            Tags: <span class='tags-warn'>Please enter a tag!</span><br>
+            <input id='edit-tags' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
+          </label>
+          <label class='note-area'>
+            Notes: <span class='notes-warn'>Please enter a note!</span><br>
+            <textarea id='edit-notes' type="text" name="notes" placeholder="Type your notes here"></textarea>
+          </label>
+          <label>
+            <button class='btn btn-top btn-delete'>Delete</button>
+            <button class="btn btn-save" id='edit'>Save</button>
           </label>
         </fieldset>
       </div>

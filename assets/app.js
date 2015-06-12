@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-  alert('ready!')
-
   $(document).on('click', '.btn-search', function(){
     var search = $('#search').val();
     $('.note').hide();
@@ -25,7 +23,7 @@ $(document).ready(function(){
     $('#search').prop('disabled', true);
   });
 
-  $('.btn-save').click(function(){
+  $('#save').click(function(){
     var title = $('#title').val();
     var tags = $('#tags').val();
     var notes = $('#notes').val();
@@ -65,21 +63,55 @@ $(document).ready(function(){
     });
 
   $(document).on('click', '.btn-edit', function(){
-    $(this).parents('.note').addClass('edit-note');
+    $(this).parents('.note').addClass('edited-note');
     $('.allnotes').hide();
-    $('.new-note').show();
+    $('.edit-note').show();
     $('.btn-search').prop('disabled', true);
     $('#search').attr("placeholder", "Sorry, can't search while you're making a new note!");
     $('#search').prop('disabled', true);
-    $('#title').val($('.edit-note').find('h1').text());
-    $('#tags').val($('.edit-note').find('h3').text());
-    $('#notes').val($('.edit-note').find('p').text());
-    $(this).parents('.note').removeClass('edit-note');
+    $('#edit-title').val($('.edited-note').find('h1').text());
+    $('#edit-tags').val($('.edited-note').find('h3').text());
+    $('#edit-notes').val($('.edited-note').find('p').text());
+    // $(this).parents('.note').removeClass('edit-note');
+  });
+
+  $('#edit').click(function(){
+    var title = $('#edit-title').val();
+    var tags = $('#edit-tags').val();
+    var notes = $('#edit-notes').val();
+    var myDate = new Date();
+    if (title.length < 1) {
+      $('.title-warn').show();
+    }
+    if (tags.length < 1) {
+      $('.tags-warn').show();
+    }
+    if (notes.length < 1) {
+      $('.notes-warn').show();
+    }
+    if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
+      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date">      <h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
+      $('.allnotes').show();
+      $('.edit-note').hide();
+      $('.title-warn').hide();
+      $('.tags-warn').hide();
+      $('.notes-warn').hide();
+    }
+    $('#title').val('');
+    $('#tags').val('');
+    $('#notes').val('');
+    $('#search').prop('disabled', false);
+    $('#search').attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
+    $('.btn-search').prop('disabled', false);
+    $('.edited-note').removeClass('edited-note');
   });
 
   $(document).on('click', '.btn-delete', function(){
     $('.allnotes').show();
     $('.new-note').hide();
+    $('.edit-note').hide();
+    $('.edited-note').addClass('deleted-note').removeClass('edited-note');
+    $('.deleted-note').hide();
     $('#title').val('');
     $('#tags').val('');
     $('#notes').val('');
