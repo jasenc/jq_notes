@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+  $('#search-form').submit(function () {
+    return false;
+  });
+
   $(document).on('click', '.btn-search', function(){
     var search = $('#search').val();
     $('.note').hide();
