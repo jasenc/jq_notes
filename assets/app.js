@@ -1,4 +1,16 @@
-$(document).ready(function(){
+function search() {
+  $('.note').toggle();
+  $('.btn-new').toggle();
+  $('.btn-clear').show();
+}
+
+function main() {
+
+  $.extend($.expr[":"], {
+    "contains": function(elem, i, match, array) {
+      return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
 
   $('#search-form').submit(function () {
     return false;
@@ -123,4 +135,6 @@ $(document).ready(function(){
     $('#search').attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
     $('.btn-search').prop('disabled', false);
   });
-});
+}
+
+$(document).ready(main());
