@@ -1,10 +1,17 @@
-function search() {
-  $('.note').toggle();
-  $('.btn-new').toggle();
-  $('.btn-clear').show();
-}
-
 function main() {
+
+  var $allNotes = $('.allnotes'),
+      $btnNew = $('.btn-new'),
+      $btnClear = $('.btn-clear'),
+      $btnDelete = $('.btn-delete'),
+      $btnSearch = $('.btn-search'),
+      $editNote = $('.edit-note'),
+      $newNote = $('.new-note'),
+      $note = $('.note'),
+      $noteWarn = $('.notes-warn'),
+      $search = $('#search'),
+      $tagsWarn = $('.tags-warn'),
+      $titleWarn = $('.title-warn');
 
   $.extend($.expr[":"], {
     "contains": function(elem, i, match, array) {
@@ -12,129 +19,128 @@ function main() {
     }
   });
 
-  $('#search-form').submit(function () {
-    return false;
+  $('#search-form').submit(function (e) {
+    e.preventDefault();
   });
 
-  $(document).on('click', '.btn-search', function(){
-    var search = $('#search').val();
-    $('.note').hide();
-    $('.btn-new').hide();
-    $('.btn-clear').show();
+  $btnSearch.on('click', function(){
+    var search = $search.val();
+    $note.hide();
+    $btnNew.hide();
+    $btnClear.show();
     $(".note:contains('" + search + "')").show();
   });
 
-  $(document).on('click','.btn-clear', function() {
-    $('#search').val('');
-    $('.btn-clear').hide();
-    $('.btn-new').show();
-    $('.note').show();
+  $btnClear.on('click', function() {
+    $search.val('');
+    $btnClear.hide();
+    $btnNew.show();
+    $note.show();
   })
 
-  $(document).on('click', '.btn-new', function(){
-    $('.allnotes').hide();
-    $('.new-note').show();
-    $('.btn-search').prop('disabled', true);
-    $('#search').attr("placeholder", "Sorry, can't search while you're making a new note!");
-    $('#search').prop('disabled', true);
+  $btnNew.on('click', function(){
+    $('#title').val('');
+    $('#tags').val('');
+    $('#notes').val('');
+    $allNotes.hide();
+    $newNote.show();
+    $btnSearch.prop('disabled', true);
+    $search.attr("placeholder", "Sorry, can't search while you're making a new note!");
+    $search.prop('disabled', true);
   });
 
-  $('#save').click(function(){
+  $('#save').on('click', function(){
     var title = $('#title').val();
     var tags = $('#tags').val();
     var notes = $('#notes').val();
     var myDate = new Date();
     if (title.length < 1) {
-      $('.title-warn').show();
+      $titleWarn.show();
     }
     if (tags.length < 1) {
-      $('.tags-warn').show();
+      $tagsWarn.show();
     }
     if (notes.length < 1) {
-      $('.notes-warn').show();
+      $noteWarn.show();
     }
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $('.allnotes').prepend('<li class="note"><div><h1>' + title + '</h1><div class="date">      <h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
-      $('.allnotes').show();
-      $('.new-note').hide();
-      $('.title-warn').hide();
-      $('.tags-warn').hide();
-      $('.notes-warn').hide();
+      $allNotes.prepend('<li class="note"><div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
+      $allNotes.show();
+      $newNote.hide();
+      $titleWarn.hide();
+      $tagsWarn.hide();
+      $noteWarn.hide();
+      $search.prop('disabled', false);
+      $search.attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
+      $btnSearch.prop('disabled', false);
     }
-    $('#title').val('');
-    $('#tags').val('');
-    $('#notes').val('');
-    $('#search').prop('disabled', false);
-    $('#search').attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
-    $('.btn-search').prop('disabled', false);
   });
 
-  $(document).on('mouseenter', '.date',  function(){
+// Use on document to work with dynamically added DOM elements
+
+  $(document).on('mouseenter', '.date', function() {
       $(this).children('h2').hide();
       $(this).children('.btn-edit').show();
-    });
-    $(document).on('mouseleave', '.date', function(){
+  });
+  $(document).on('mouseleave', '.date', function() {
       $(this).children('h2').show();
       $(this).children('.btn-edit').hide();
-    });
+  });
 
   $(document).on('click', '.btn-edit', function(){
     $(this).parents('.note').addClass('edited-note');
-    $('.allnotes').hide();
-    $('.edit-note').show();
-    $('.btn-search').prop('disabled', true);
-    $('#search').attr("placeholder", "Sorry, can't search while you're making a new note!");
-    $('#search').prop('disabled', true);
+    $allNotes.hide();
+    $editNote.show();
+    $btnSearch.prop('disabled', true);
+    $search.attr("placeholder", "Sorry, can't search while you're making a new note!");
+    $search.prop('disabled', true);
     $('#edit-title').val($('.edited-note').find('h1').text());
     $('#edit-tags').val($('.edited-note').find('h3').text());
     $('#edit-notes').val($('.edited-note').find('p').text());
-    // $(this).parents('.note').removeClass('edit-note');
   });
 
-  $('#edit').click(function(){
+  $('#edit').on('click', function(){
     var title = $('#edit-title').val();
     var tags = $('#edit-tags').val();
     var notes = $('#edit-notes').val();
     var myDate = new Date();
     if (title.length < 1) {
-      $('.title-warn').show();
+      $titleWarn.show();
     }
     if (tags.length < 1) {
-      $('.tags-warn').show();
+      $tagsWarn.show();
     }
     if (notes.length < 1) {
-      $('.notes-warn').show();
+      $noteWarn.show();
     }
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date">      <h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
-      $('.allnotes').show();
-      $('.edit-note').hide();
-      $('.title-warn').hide();
-      $('.tags-warn').hide();
-      $('.notes-warn').hide();
+      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
+      $allNotes.show();
+      $editNote.hide();
+      $titleWarn.hide();
+      $tagsWarn.hide();
+      $noteWarn.hide();
+      $search.prop('disabled', false);
+      $search.attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
+      $btnSearch.prop('disabled', false);
+      $('.edited-note').removeClass('edited-note');
     }
-    $('#title').val('');
-    $('#tags').val('');
-    $('#notes').val('');
-    $('#search').prop('disabled', false);
-    $('#search').attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
-    $('.btn-search').prop('disabled', false);
-    $('.edited-note').removeClass('edited-note');
   });
 
-  $(document).on('click', '.btn-delete', function(){
-    $('.allnotes').show();
-    $('.new-note').hide();
-    $('.edit-note').hide();
+  $btnDelete.on('click', function(){
+    $allNotes.show();
+    $newNote.hide();
+    $editNote.hide();
     $('.edited-note').addClass('deleted-note').removeClass('edited-note');
     $('.deleted-note').hide();
     $('#title').val('');
     $('#tags').val('');
     $('#notes').val('');
-    $('#search').prop('disabled', false);
-    $('#search').attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
-    $('.btn-search').prop('disabled', false);
+    $search.prop('disabled', false);
+    $search.attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
+    $btnSearch.prop('disabled', false);
   });
+
 }
 
 $(document).ready(main());
