@@ -1,21 +1,34 @@
-function main() {
+var $allNotes = $('.allnotes'),
+    $btnNew = $('.btn-new'),
+    $btnClear = $('.btn-clear'),
+    $btnDelete = $('.btn-delete'),
+    $btnSearch = $('.btn-search'),
+    $editNote = $('.edit-note'),
+    $newNote = $('.new-note'),
+    $note = $('.note'),
+    $noteWarn = $('.notes-warn'),
+    $search = $('#search'),
+    $tagsWarn = $('.tags-warn'),
+    $titleWarn = $('.title-warn'),
+    title,
+    tags,
+    notes,
+    myDate;
 
-    var $allNotes = $('.allnotes'),
-        $btnNew = $('.btn-new'),
-        $btnClear = $('.btn-clear'),
-        $btnDelete = $('.btn-delete'),
-      $btnSearch = $('.btn-search'),
-      $editNote = $('.edit-note'),
-      $newNote = $('.new-note'),
-      $note = $('.note'),
-      $noteWarn = $('.notes-warn'),
-      $search = $('#search'),
-      $tagsWarn = $('.tags-warn'),
-      $titleWarn = $('.title-warn'),
-      title,
-      tags,
-      notes,
-      myDate;
+
+function searching() {
+  $btnClear.show();
+  $btnNew.hide();
+  $note.hide();
+}
+
+function clearing() {
+  $btnClear.hide();
+  $btnNew.show();
+  $note.show();
+}
+
+function main() {
 
   $.extend($.expr[":"], {
     "contains": function(elem, i, match, array) {
@@ -28,19 +41,15 @@ function main() {
   });
 
   $btnSearch.on('click', function(){
+    searching($(this));
     var search = $search.val();
     $note = $('.note');
-    $note.hide();
-    $btnNew.hide();
-    $btnClear.show();
     $(".note:contains('" + search + "')").show();
   });
 
   $btnClear.on('click', function() {
     $search.val('');
-    $btnClear.hide();
-    $btnNew.show();
-    $(note).show();
+    clearing($(this));
   })
 
   $btnNew.on('click', function(){
