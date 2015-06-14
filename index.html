@@ -8,7 +8,7 @@
     <div class='wrapper'>
       <div class='top-bar'>
         <form id='search-form'>
-          <input id='search' type="text" name="notesearch" placeholder="Search by title, tags, date, or even words/sentences in notes"><!--
+          <input id='search' class='form-control' type="text" name="notesearch" placeholder="Search by title, tags, date, or even words/sentences in notes"><!--
             --><button class='btn btn-top btn-search'>Search</button><!--
           --><button href='#' class='btn btn-top btn-new'>New Note</button><!--
           --><button href='#' class='btn btn-top btn-clear'>Clear Search</button>
@@ -20,41 +20,41 @@
           <legend>New Note</legend>
           <label class='title'>
             Title: <span class='title-warn'>Please enter a title!</span>	<br>
-            <input id='title' type="text" name="title" placeholder="Title of new note">
+            <input id='title' class='form-control' type="text" name="title" placeholder="Title of new note">
           </label><!--
           --><label class='tags'>
             Tags: <span class='tags-warn'>Please enter a tag!</span><br>
-            <input id='tags' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
+            <input id='tags' class='form-control' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
           </label>
           <label class='note-area'>
             Notes: <span class='notes-warn'>Please enter a note!</span><br>
-            <textarea id='notes' type="text" name="notes" placeholder="Type your notes here"></textarea>
+            <textarea id='notes' class='form-control' type="text" name="notes" placeholder="Type your notes here"></textarea>
           </label>
           <label>
-            <button class='btn btn-top btn-delete'>Delete</button>
-            <button class="btn btn-save" id='save'>Save</button>
+            <button class="btn btn-post" id='post'>Post</button>
+            <button class='btn btn-top btn-save' id='save'>Save Draft</button>
           </label>
         </fieldset>
       </div>
 
       <div class='edit-note'>
         <fieldset>
-          <legend>New Note</legend>
+          <legend>Edit Note</legend>
           <label class='title'>
             Title: <span class='title-warn'>Please enter a title!</span>	<br>
-            <input id='edit-title' type="text" name="title" placeholder="Title of new note">
+            <input id='edit-title' class='form-control' type="text" name="title" placeholder="Title of new note">
           </label><!--
           --><label class='tags'>
             Tags: <span class='tags-warn'>Please enter a tag!</span><br>
-            <input id='edit-tags' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
+            <input id='edit-tags' class='form-control' type="text" name="tags" placeholder="#tag1 #tag2 #tag3">
           </label>
           <label class='note-area'>
             Notes: <span class='notes-warn'>Please enter a note!</span><br>
-            <textarea id='edit-notes' type="text" name="notes" placeholder="Type your notes here"></textarea>
+            <textarea id='edit-notes' class='form-control' type="text" name="notes" placeholder="Type your notes here"></textarea>
           </label>
           <label>
+            <button class="btn btn-post" id='edit'>Save Edit</button>
             <button class='btn btn-top btn-delete'>Delete</button>
-            <button class="btn btn-save" id='edit'>Save</button>
           </label>
         </fieldset>
       </div>
@@ -65,7 +65,7 @@
             <h1>My Second Note</h1>
             <div class='date'>
               <h2>Tue June 9 2015</h2>
-              <span class='btn btn-edit'>Edit</span>
+              <button class='btn btn-edit'>Edit</button>
             </div>
             <h3>#second</h3>
             <p>I just wanted to write my second note is all.</p>
@@ -76,7 +76,7 @@
             <h1>My First Note</h1>
             <div class='date'>
               <h2>Tue June 9 2015</h2>
-              <span class='btn btn-edit'>Edit</span>
+              <button class='btn btn-edit'>Edit</button>
             </div>
             <h3>#first</h3>
             <p>I just wanted to write my first note is all.</p>

@@ -1,9 +1,9 @@
 function main() {
 
-  var $allNotes = $('.allnotes'),
-      $btnNew = $('.btn-new'),
-      $btnClear = $('.btn-clear'),
-      $btnDelete = $('.btn-delete'),
+    var $allNotes = $('.allnotes'),
+        $btnNew = $('.btn-new'),
+        $btnClear = $('.btn-clear'),
+        $btnDelete = $('.btn-delete'),
       $btnSearch = $('.btn-search'),
       $editNote = $('.edit-note'),
       $newNote = $('.new-note'),
@@ -11,7 +11,11 @@ function main() {
       $noteWarn = $('.notes-warn'),
       $search = $('#search'),
       $tagsWarn = $('.tags-warn'),
-      $titleWarn = $('.title-warn');
+      $titleWarn = $('.title-warn'),
+      title,
+      tags,
+      notes,
+      myDate;
 
   $.extend($.expr[":"], {
     "contains": function(elem, i, match, array) {
@@ -25,6 +29,7 @@ function main() {
 
   $btnSearch.on('click', function(){
     var search = $search.val();
+    $note = $('.note');
     $note.hide();
     $btnNew.hide();
     $btnClear.show();
@@ -35,25 +40,32 @@ function main() {
     $search.val('');
     $btnClear.hide();
     $btnNew.show();
-    $note.show();
+    $(note).show();
   })
 
   $btnNew.on('click', function(){
-    $('#title').val('');
-    $('#tags').val('');
-    $('#notes').val('');
+    title = $('#title').val();
+    tags = $('#tags').val();
+    notes = $('#notes').val();
     $allNotes.hide();
     $newNote.show();
     $btnSearch.prop('disabled', true);
     $search.attr("placeholder", "Sorry, can't search while you're making a new note!");
     $search.prop('disabled', true);
+    $editNote.hide();
+    // Work on this!
+    if ($editNote.is(':visisble') == true) {
+      alert('Your changes have been lost, this is something I will work on');
+    };
   });
 
-  $('#save').on('click', function(){
-    var title = $('#title').val();
-    var tags = $('#tags').val();
-    var notes = $('#notes').val();
-    var myDate = new Date();
+  $('#post').on('click', function(){
+    myDate = new Date();
+    if(title.length < 1 && tags.length < 1 && notes.length < 1){
+      title = $('#title').val();
+      tags = $('#tags').val();
+      notes = $('#notes').val();
+    }
     if (title.length < 1) {
       $titleWarn.show();
     }
@@ -64,7 +76,7 @@ function main() {
       $noteWarn.show();
     }
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $allNotes.prepend('<li class="note"><div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
+      $allNotes.prepend('<li class="note"><div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><button class="btn btn-edit">Edit</button></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
       $allNotes.show();
       $newNote.hide();
       $titleWarn.hide();
@@ -73,7 +85,21 @@ function main() {
       $search.prop('disabled', false);
       $search.attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
       $btnSearch.prop('disabled', false);
+      title = $('#title').val('');
+      tags = $('#tags').val('');
+      notes = $('#notes').val('');
     }
+  });
+
+  $('.btn-save').on('click', function(){
+    $allNotes.show();
+    $newNote.hide();
+    $btnSearch.prop('disabled', false);
+    $search.attr("placeholder", "Search by title, tags, date, or even words/sentences in notes");
+    $search.prop('disabled', false);
+    $titleWarn.hide();
+    $tagsWarn.hide();
+    $noteWarn.hide();
   });
 
 // Use on document to work with dynamically added DOM elements
@@ -97,13 +123,13 @@ function main() {
     $('#edit-title').val($('.edited-note').find('h1').text());
     $('#edit-tags').val($('.edited-note').find('h3').text());
     $('#edit-notes').val($('.edited-note').find('p').text());
+    myDate = $('.edited-note').find('h2').text();
   });
 
   $('#edit').on('click', function(){
-    var title = $('#edit-title').val();
-    var tags = $('#edit-tags').val();
-    var notes = $('#edit-notes').val();
-    var myDate = new Date();
+    title = $('#edit-title').val();
+    tags = $('#edit-tags').val();
+    notes = $('#edit-notes').val();
     if (title.length < 1) {
       $titleWarn.show();
     }
@@ -114,7 +140,7 @@ function main() {
       $noteWarn.show();
     }
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
+      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date"><h2>'+ myDate +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
       $allNotes.show();
       $editNote.hide();
       $titleWarn.hide();
