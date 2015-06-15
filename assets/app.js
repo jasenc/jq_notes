@@ -120,7 +120,7 @@ function main() {
     }
     blog.warnings($(this));
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $allNotes.prepend('<li class="note"><div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><button class="btn btn-edit">Edit</button></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
+      $allNotes.prepend('<li class="note"><article><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><button class="btn btn-edit">Edit</button></div><h3>' + tags + '</h3><div class=\'content\'>' + notes + '</div></article></li>');
       blog.toNewNote($(this));
       blog.closeWarnings($(this));
       blog.enableSearch($(this));
@@ -164,7 +164,7 @@ function main() {
     notes = $('#edit-notes').val();
     blog.warnings($(this));
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
-      $('.edited-note').html('<div><h1>' + title + '</h1><div class="date"><h2>'+ myDate +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><p>' + notes + '</p></div>');
+      $('.edited-note').html('<artcile><h1>' + title + '</h1><div class="date"><h2>'+ myDate +'</h2><span class="btn btn-edit">Edit</span></div><h3>' + tags + '</h3><div content=\'content\'>' + notes + '</div></artcile>');
       blog.toEditNote($(this));
       blog.closeWarnings($(this));
       blog.enableSearch($(this));

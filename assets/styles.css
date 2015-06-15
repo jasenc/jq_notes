@@ -148,7 +148,7 @@ input[name=notesearch] {
 .form-control,
 .top-bar,
 .note,
-p {
+.content {
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border-radius: 4px;
