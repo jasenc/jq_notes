@@ -115,9 +115,7 @@ function main() {
 
   $('#post').on('click', function(){
     myDate = new Date();
-    if(title.length < 1 && tags.length < 1 && notes.length < 1){
-      blog.checkNotes($(this));
-    }
+    blog.checkNotes($(this));
     blog.warnings($(this));
     if (title.length >= 1 && tags.length >= 1 && notes.length >= 1) {
       $allNotes.prepend('<li class="note"><div><h1>' + title + '</h1><div class="date"><h2>'+ myDate.toDateString() +'</h2><button class="btn btn-edit">Edit</button></div><h3>' + tags + '</h3><p>' + notes + '</p></div></li>');
